@@ -2,17 +2,22 @@ package com.example.fragmentpractice
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.activity.viewModels
 import com.example.fragmentpractice.Fragment.FirstFragment
 import com.example.fragmentpractice.Fragment.SecondFragment
 import com.example.fragmentpractice.Fragment.ThirdFragment
 import com.example.fragmentpractice.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    init {
+        Log.e("TAG", "MainActivity created", )
+    }
 
     private var first = FirstFragment()
     private var second = SecondFragment()
     private var third = ThirdFragment()
-
+    private val mainViewModel: MainViewModel by viewModels()
     private val binding : ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -20,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        mainViewModel.mainViewModelTest()
 
         binding.button.setOnClickListener {
             supportFragmentManager.beginTransaction()
@@ -57,5 +63,10 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
          */
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e("TAG", "MainActivity onDestroy: ", )
     }
 }
